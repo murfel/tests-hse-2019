@@ -13,21 +13,19 @@ public class Issue {
         this.description = description;
     }
 
-    public static Issue extractIssue(WebDriver driver, WebElement issueTable) {
-        WebElement issueSummaryLink = issueTable.findElement(By.className("issue-summary"));
-        String summary = issueSummaryLink.getText();
-        String relativeLink = issueSummaryLink.getAttribute("href");
-        driver.navigate().to("http://localhost:8080/" + relativeLink);
-        driver.navigate().back();
-        String description = driver.findElements(By.className("wiki")).get(0).getText();
-        return new Issue(summary, description);
-    }
-
     public String getSummary() {
         return summary;
     }
 
     public String getDescription() {
         return description;
+    }
+
+    public static Issue extractIssue(WebDriver driver, WebElement issueContainer) {
+        String link = issueContainer.findElements(By.className("issueId")).get(0).getAttribute("href");
+        driver.navigate().to(link);
+        String summary = driver.findElement(By.id("id_l.I.ic.icr.it.issSum")).getText();
+        String description = driver.findElement(By.id("id_l.I.ic.icr.d.description")).getText();
+        return new Issue(summary, description);
     }
 }

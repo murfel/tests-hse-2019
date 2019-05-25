@@ -15,6 +15,12 @@ public class TextElement {
     }
 
     public void setText(String text) {
+        element.clear();  // clear pre-inserted (e.g. cached) text
         element.sendKeys(text);
+        element.sendKeys("\t");
+    }
+
+    public String getText() {
+        return element.getText();
     }
 }

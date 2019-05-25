@@ -11,7 +11,7 @@ public class ButtonElement {
 
     public ButtonElement(WebDriver driver, String id) {
         WebDriverWait wait = new WebDriverWait(driver, 3);
-        element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(id)));
+        element = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(id)));
     }
 
     public void click() {

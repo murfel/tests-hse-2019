@@ -4,6 +4,8 @@ import ru.hse.spb.elements.ButtonElement;
 import ru.hse.spb.elements.TextElement;
 import org.openqa.selenium.WebDriver;
 
+import static java.lang.System.exit;
+
 public class NewIssuePage {
     private final TextElement summary;
     private final TextElement description;
@@ -16,13 +18,26 @@ public class NewIssuePage {
         createIssueButton = new ButtonElement(driver, "id_l.D.ni.ei.submitButton_74_0");
     }
 
+    public void setSummaryAndDescription(String summary, String description) {
+        this.summary.setText(summary);
+        this.description.setText(description);
+//        System.out.println(summary);
+//        System.out.println(description);
+//        System.out.println(this.summary.getText());
+//        System.out.println(this.description.getText());
+
+    }
+
+    public Issue getCachedIssue() {
+        return new Issue(summary.getText(), description.getText());
+    }
+
     public static void createNewIssue(WebDriver driver, String summary, String description) {
         (new NewIssuePage(driver)).createNewIssue(summary, description);
     }
 
     public void createNewIssue(String summary, String description) {
-        this.summary.setText(summary);
-        this.description.setText(description);
+        setSummaryAndDescription(summary, description);
         createIssueButton.click();
     }
 }
